@@ -5,9 +5,7 @@ import {Counter} from "@/features/counter/Counter";
 
 const Fwpf = () => {
     return (
-        <Provider store={store}>
             <Counter/>
-        </Provider>
     )
 }
 export default Fwpf

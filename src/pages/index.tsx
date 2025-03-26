@@ -1,13 +1,13 @@
 import React from 'react'
 import Home from "@/features/home/Home";
-import {Provider} from "react-redux";
-import { store } from "../provider/store/store"
+import AppProvider from "@/provider/AppProvider";
+import {SecureArea} from "@/components/secureArea/SecureArea";
 
 const Index = () => {
     return (
-        <Provider store={store}>
+        <SecureArea>
             <Home/>
-        </Provider>
+        </SecureArea>
     )
 }
 export default Index
