@@ -9,7 +9,6 @@ import {Divider} from "@mui/material";
 const Item = styled(Paper)(({ theme, id }) => {
 
     let bgcolor = '#fff'
-    console.log(id);
     if (Number(id) <= 3){
         bgcolor = '#dbffcd'
     }

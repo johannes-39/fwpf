@@ -8,9 +8,7 @@ import TerminalIcon from '@mui/icons-material/Terminal';
 import {IconButton} from "@mui/material";
 
 const ModulItem = ({...props}) => {
-    console.log(props)
     const [open, setOpen] = useState(false);
-    console.log(open);
     const handleOpen = () => {
         setOpen(!open);
     }

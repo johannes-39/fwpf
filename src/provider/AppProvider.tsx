@@ -7,8 +7,23 @@ const theme = createTheme({
     palette: {
         primary: {
             main: '#000000',
+            light: '#123456',
+            dark: '#234567'
         },
+        secondary: {
+            main: '#123456'
+        },
+        background: {
+            default: '#000000'
+        }
     },
+    typography: {
+        allVariants: {
+            fontFamily: 'sans-serif',
+            textTransform: 'none',
+            fontSize: 16,
+        },
+    }
 });
 
 const AppProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
