@@ -1,11 +1,12 @@
 import React from 'react'
-import {store} from "@/provider/store/store";
-import {Provider} from "react-redux";
 import {Counter} from "@/features/counter/Counter";
+import {SecureArea} from "@/components/secureArea/SecureArea";
 
 const Fwpf = () => {
     return (
+        <SecureArea>
             <Counter/>
+        </SecureArea>
     )
 }
 export default Fwpf

@@ -1,16 +1,12 @@
 import React from 'react'
-import {useDispatch, useSelector} from "react-redux";
-import type {RootState} from "@/provider/store/store";
-import HorizontalStepper from "@/components/stepper/HorizontalStepper";
-import {useHomeStepper} from "@/features/home/context/hooks";
+import FwpfGrid from "@/features/home/components/FwpfGrid/FwpfGrid";
 
 const Home = () => {
-    const home = useSelector((state: RootState) => state.home)
-    const dispatch = useDispatch();
-    const {steps: stepValues} = useHomeStepper();
     return (
         <div>
-            <HorizontalStepper stepValues={stepValues}/>
+            {/*<HorizontalStepper stepValues={stepValues}/>*/}
+            <FwpfGrid/>
+            {/*<SortableGrid/>*/}
         </div>
     )
 }

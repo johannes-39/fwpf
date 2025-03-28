@@ -1,12 +1,15 @@
-import React from 'react'
+import * as React from 'react';
 import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
-import MobileStepper from '@mui/material/MobileStepper';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import StepContent from '@mui/material/StepContent';
+import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import FwpfGrid from "@/features/home/components/FwpfGrid/FwpfGrid";
+import {useSelector} from "react-redux";
+import type {RootState} from "@/provider/store/store";
 
 const steps = [
     {
@@ -28,10 +31,10 @@ const steps = [
               they're running and how to resolve approval issues.`,
     },
 ];
-const HorizontalStepper = ({stepValues}) => {
-    const theme = useTheme();
+
+export default function HorizontalStepper() {
+    const {fwpfs} = useSelector((state: RootState) => state.home);
     const [activeStep, setActiveStep] = React.useState(0);
-    const maxSteps = steps.length;
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -41,55 +44,57 @@ const HorizontalStepper = ({stepValues}) => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
+    const handleReset = () => {
+        setActiveStep(0);
+    };
+
     return (
-        <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
-            <Paper
-                square
-                elevation={0}
-                sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    height: 50,
-                    pl: 2,
-                    bgcolor: 'background.default',
-                }}
-            >
-                <Typography>{steps[activeStep].label}</Typography>
-            </Paper>
-            <Box sx={{ height: 255, maxWidth: 400, width: '100%', p: 2 }}>
-                {steps[activeStep].description}
-            </Box>
-            <MobileStepper
-                variant="text"
-                steps={maxSteps}
-                position="static"
-                activeStep={activeStep}
-                nextButton={
-                    <Button
-                        size="small"
-                        onClick={handleNext}
-                        disabled={activeStep === maxSteps - 1}
-                    >
-                        Next
-                        {theme.direction === 'rtl' ? (
-                            <KeyboardArrowLeft />
-                        ) : (
-                            <KeyboardArrowRight />
-                        )}
+        <Box>
+            <Stepper activeStep={activeStep} orientation="vertical">
+                {steps.map((step, index) => (
+                    <Step key={step.label}>
+                        <StepLabel
+                            optional={
+                                index === 0 && activeStep > 0 ? (
+                                    <><Typography variant="caption">{fwpfs[0].name} - </Typography>
+                                        <Typography variant="caption">{fwpfs[1].name} - </Typography>
+                                        <Typography variant="caption">{fwpfs[2].name}</Typography></>
+                                ) : null
+                            }
+                        >
+                            {step.label}
+                        </StepLabel>
+                        <StepContent>
+                            {activeStep === 0 ? <FwpfGrid/> :
+                            <Typography>{step.description}</Typography>}
+                            <Box sx={{ mb: 2 }}>
+                                <Button
+                                    variant="contained"
+                                    onClick={handleNext}
+                                    sx={{ mt: 1, mr: 1 }}
+                                >
+                                    {index === steps.length - 1 ? 'Finish' : 'Continue'}
+                                </Button>
+                                <Button
+                                    disabled={index === 0}
+                                    onClick={handleBack}
+                                    sx={{ mt: 1, mr: 1 }}
+                                >
+                                    Back
+                                </Button>
+                            </Box>
+                        </StepContent>
+                    </Step>
+                ))}
+            </Stepper>
+            {activeStep === steps.length && (
+                <Paper square elevation={0} sx={{ p: 3 }}>
+                    <Typography>All steps completed - you&apos;re finished</Typography>
+                    <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
+                        Reset
                     </Button>
-                }
-                backButton={
-                    <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-                        {theme.direction === 'rtl' ? (
-                            <KeyboardArrowRight />
-                        ) : (
-                            <KeyboardArrowLeft />
-                        )}
-                        Back
-                    </Button>
-                }
-            />
+                </Paper>
+            )}
         </Box>
     );
 }
-export default HorizontalStepper
