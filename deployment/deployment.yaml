@@ -17,5 +17,14 @@ spec:
         - name: kubernetes-project
           image: kubernetes-project:latest
           imagePullPolicy: IfNotPresent
+          env:
+            - name: GITHUB_ID
+              value: "Ov23lieF7CRFl50OM7HG"
+            - name: GITHUB_SECRET
+              value: "6aa695ea3533afa5ee790355eaeb2e6354300459"
+            - name: NEXT_AUTH
+              value: "http://localhost:3000"
+            - name: JWT_SECRET
+              value: "f9dbe96506ec50e1bc78599158029935"
           ports:
             - containerPort: 3000
